@@ -76,6 +76,7 @@ fs.writeFile('README.md', README, err => {
     }
 }
 );
+});
 
 // TODO: Create a function to initialize app
 function init() {
