@@ -12,6 +12,11 @@ const questions = [
     },
     {
         type: 'input',
+        name: 'description',
+        message: "What is the description of your project?",
+    },
+    {
+        type: 'input',
         name: 'installation',
         message: "What are the steps required to install your project?",
     },
@@ -37,9 +42,19 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'learning',
-        message: "What did you learn from this project?",
+        name: 'tests',
+        message: "What are the test instructions for your project?",
     },
+    {
+        type: 'input',
+        name: 'githubUsername',
+        message: "What is your GitHub username?",
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: "What is your email address?",
+    }
     {
         type: 'list',
         name: 'license',
@@ -49,18 +64,25 @@ const questions = [
 ];
 // TODO: Create a function to write README file
 inquirer.prompt(questions).then((answers) => {
-    const { title, installation, usage, credits, userStory, acceptanceCriteria, learning, license } = answers;
+    const { title, description, installation, usage, credits, userStory, acceptanceCriteria, tests, githubUsername, email, license } = answers;
 
     const README = 
  `# ${title}
 ## Table of Contents
+* [Description](#description)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Credits](#credits)
 * [User Story](#userStory)
 * [Acceptance Criteria](#acceptanceCriteria)
-* [Learning](#learning)
+* [Tests](#tests)
+* [GitHub](#github)
+* [Email](#email)
 * [License](#license)
+
+## Description
+
+${description}
 
 ## Installation
 
@@ -82,9 +104,18 @@ ${userStory}
 
 ${acceptanceCriteria}
 
-## Learning
+## Tests
 
-${learning}
+${tests}
+
+## GitHub
+
+[https://github.com/${githubUsername}](https://github.com/${githubUsername})
+
+## Email
+
+[mailto:${email}](mailto:${email})
+
 
 ## License
 
