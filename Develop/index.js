@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown.js');
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -40,9 +41,10 @@ const questions = [
         message: "What did you learn from this project?",
     },
     {
-        type: 'input',
+        type: 'list',
         name: 'license',
         message: "What license did you use for this project?",
+        choices: ['MIT', 'Apache', 'GPL', 'BSD', 'None'],
     }
 ];
 // TODO: Create a function to write README file
@@ -50,21 +52,43 @@ inquirer.prompt(questions).then((answers) => {
     const { title, installation, usage, credits, userStory, acceptanceCriteria, learning, license } = answers;
 
     const README = 
-    `# ${title}
-    ## Installation
-    ${installation}
-    ## Usage
-    ${usage}
-    ## Credits
-    ${credits}
-    ## User Story
-    ${userStory}
-    ## Acceptance Criteria
-    ${acceptanceCriteria}
-    ## Learning
-    ${learning}
-    ## License
-    ${license}
+ `# ${title}
+## Table of Contents
+* [Installation](#installation)
+* [Usage](#usage)
+* [Credits](#credits)
+* [User Story](#userStory)
+* [Acceptance Criteria](#acceptanceCriteria)
+* [Learning](#learning)
+* [License](#license)
+
+## Installation
+
+${installation}
+
+## Usage
+
+${usage}
+
+## Credits
+
+${credits}
+
+## User Story
+
+${userStory}
+
+## Acceptance Criteria
+
+${acceptanceCriteria}
+
+## Learning
+
+${learning}
+
+## License
+
+${generateMarkdown(license)}
 `;
 // fs to write file
 fs.writeFile('README.md', README, err => {
@@ -77,11 +101,3 @@ fs.writeFile('README.md', README, err => {
 }
 );
 });
-
-// TODO: Create a function to initialize app
-function init() {
-
-}
-
-// Function call to initialize app
-init();
