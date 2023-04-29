@@ -11,6 +11,12 @@ const questions = [
         message: "What is the title of your project?",
     },
     {
+        type: 'list',
+        name: 'license',
+        message: "What license did you use for this project?",
+        choices: ['MIT', 'Apache', 'GPL', 'BSD', 'None'],
+    },
+    {
         type: 'input',
         name: 'description',
         message: "What is the description of your project?",
@@ -55,19 +61,17 @@ const questions = [
         name: 'email',
         message: "What is your email address?",
     }
-    {
-        type: 'list',
-        name: 'license',
-        message: "What license did you use for this project?",
-        choices: ['MIT', 'Apache', 'GPL', 'BSD', 'None'],
-    }
 ];
 // TODO: Create a function to write README file
 inquirer.prompt(questions).then((answers) => {
-    const { title, description, installation, usage, credits, userStory, acceptanceCriteria, tests, githubUsername, email, license } = answers;
+    const { title, license, description, installation, usage, credits, userStory, acceptanceCriteria, tests, githubUsername, email} = answers;
 
-    const README = 
- `# ${title}
+const README = 
+`# ${title}
+## License
+
+${generateMarkdown(license)}
+
 ## Table of Contents
 * [Description](#description)
 * [Installation](#installation)
@@ -115,11 +119,6 @@ ${tests}
 ## Email
 
 [mailto:${email}](mailto:${email})
-
-
-## License
-
-${generateMarkdown(license)}
 `;
 // fs to write file
 fs.writeFile('README.md', README, err => {
